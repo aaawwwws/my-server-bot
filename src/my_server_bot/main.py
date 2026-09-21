@@ -1,7 +1,7 @@
 import os
+import sys
 
 import discord
-from discord.types.channel import TextChannel
 from dotenv import load_dotenv
 
 
@@ -13,7 +13,8 @@ def main() -> int:
 
     @bot.event
     async def on_ready():
-        activity = discord.Game(name="CIV6をプレイ中と")
+        args = sys.argv
+        activity = discord.Game(name=args[1])
         await bot.change_presence(activity=activity)
         print("ready!")
 
