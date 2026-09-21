@@ -4,6 +4,8 @@ import sys
 import discord
 from dotenv import load_dotenv
 
+from my_server_bot.buttons import setstatusbutton
+
 
 def main() -> int:
     load_dotenv()
@@ -36,7 +38,15 @@ def main() -> int:
         if "https://store.steampowered.com/app/" in message.content:
             await repost(message, "steamリンク")
 
+    # 設定パネル送信のスラッシュコマンド
+    @bot.slash_command(name="send-settings-panel", description="設定ボタンパネルを送信")
+    async def send_settings_panel(ctx: discord.ApplicationContext):
+        await ctx.response.send_message(
+            view=setstatusbutton.SetStatusButton(bot), silent=True
+        )
+
     bot.run(TOKEN)
+
     return 0
 
 
